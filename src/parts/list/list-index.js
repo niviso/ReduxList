@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Moment from 'react-moment';
 class ListIndex extends Component {
     constructor(props){
         super(props);
@@ -6,8 +7,8 @@ class ListIndex extends Component {
   render() {
    
     return (
-      <div className="ListIndex" onClick={this.props.saySomething}>
-        {this.props.data.key}
+      <div className="ListIndex">
+        {this.props.data.text} <i className="Date"><Moment fromNow interval={30000} date={this.props.data.key}/></i>
       </div>
     );
   }

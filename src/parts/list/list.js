@@ -1,56 +1,53 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import React, {Component} from 'react';
+import {connect} from 'react-redux'
 import ListIndex from './list-index';
 import Btn from '../Btn/Btn';
 import InputField from '../InputField/InputField';
-
 import './list.scss';
-import { addTodo } from '../../actions/actions'
+import {addTodo,removeTodo} from '../../actions/actions'
 class List extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.input = "";
-    }
-
-    test = (e) => {
-      this.input = e;
+        this.inputField = React.createRef();
     }
 
     addTodo = () => {
-      this.props.addTodo({key:this.input})
+      if(this.inputField.current.state.value.length > 0){
+        this.props.addTodo({text: this.inputField.current.state.value});
+        this.inputField.current.reset();
+      }
     }
-  render() {
-   
-    return (
-      <div className="List">
-      <div className="TwoColumn">
-      <div className="Left">
-      <InputField onChange={this.test} />
-      </div>
-      <div className="Right">
-    <Btn text="Add todo" onClick={this.addTodo}/>
-    </div>
-    </div>
-    {this.props.state.todos.list.map(i => {
-        return <ListIndex data={i} key={i.key}/>
-      })}
-      </div>
-    );
-  }
+    render() {
+
+        return (
+          <div className="ListWrapper">
+          <div className="ListName">
+          <h1>Shopping list</h1>
+          </div>
+            <div className="List">
+
+                <InputField ref={this.inputField} onClick={this.addTodo} icon="New task" placeholder="Buy something..."/>
+                <div class="ListItems">
+                {this.props.state.todos.list.map(i => {
+                        return <div key={i.key} onClick={() => this.props.removeTodo(i.key)} className="Item"> <ListIndex data={i}/> </div>
+                    })}
+                    </div>
+            </div>
+            </div>
+        );
+    }
 }
 
+const mapStateToProps = (state) => ({state: state})
+const mapDispatchToProps = (dispatch) => ({
+    addTodo: (input) => {
+        dispatch(addTodo(input))
+    },
+    removeTodo: (key) => {
+      dispatch(removeTodo(key))
+    }
 
-  const mapStateToProps = (state) => ({
-    whatsUp: state.say,
-    state: state
-  })
-  const mapDispatchToProps = (dispatch) => ({
-    addTodo: (input) => { dispatch(addTodo(input))}
-
-  })
-  List = connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(List)
+})
+List = connect(mapStateToProps, mapDispatchToProps)(List)
 
 export default List;
