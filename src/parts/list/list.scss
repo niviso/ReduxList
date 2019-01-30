@@ -38,11 +38,15 @@
 
     }
 }
-
 .ListItems::-webkit-scrollbar {
-    width: 10em;
-    background: black;
+    position: absolute;
+    width: 0.5em;
 }
+
+ .ListItems::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    transition: 0.2s all;
+} 
 .ListSummary{
     width: 100%;
     max-width: 700px;
@@ -91,7 +95,7 @@
     100%{
         opacity: 1;
         height: 3.5em;
-        width: 100%;
+        width: calc(100% - 20px);
     }
 }
 
