@@ -39,6 +39,8 @@ vidFade();
       <source src={bg} type="video/mp4"/>
       </video>
     <List/>
+    <div className="Footer">
+    Created by Nikki Sollid</div>
       </div>
     );
   }

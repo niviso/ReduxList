@@ -22,16 +22,19 @@ class List extends Component {
         return (
           <div className="ListWrapper">
           <div className="ListName">
-          <h1>Shopping list</h1>
+          <h1>Redux list</h1>
           </div>
             <div className="List">
 
-                <InputField ref={this.inputField} onClick={this.addTodo} icon="New task" placeholder="Buy something..."/>
+                <InputField ref={this.inputField} onClick={this.addTodo} icon="New task" placeholder="Describe your task"/>
                 <div class="ListItems">
                 {this.props.state.todos.list.map(i => {
                         return <div key={i.key} onClick={() => this.props.removeTodo(i.key)} className="Item"> <ListIndex data={i}/> </div>
                     })}
                     </div>
+            </div>
+            <div className="ListSummary">
+            {this.props.state.todos.list.length > 0 ? this.props.state.todos.list.length : "No"} tasks | Share | Edit
             </div>
             </div>
         );

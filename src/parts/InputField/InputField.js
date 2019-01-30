@@ -10,7 +10,11 @@ class InputField extends Component {
         }
     }
     static get defaultProps() {
-        return {text: "Button", icon: "Your name", color: "Orange", placeholder: "Placeholder", type: "text"};
+        return {value: "", icon: "Your name", color: "Orange", placeholder: "Placeholder", type: "text"};
+    }
+
+    componentDidMount(){
+      this.setState({value: this.props.value});
     }
 
     onBlur = () => {
